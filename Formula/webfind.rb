@@ -1,15 +1,16 @@
 class Webfind < Formula
   desc "Self-hosted native search engine for AI agents — pure CLI, zero cost"
   homepage "https://github.com/Gaurav-Wankhede/webfind"
-  url "https://github.com/Gaurav-Wankhede/webfind/archive/refs/tags/v0.5.0.tar.gz"
-  sha256 "e64c3a21265ab7595f28f0b08738bddb3d6f3fd4a8974d5e787330a5d54df247"
+  version "0.5.0"
   license "MIT"
-  head "https://github.com/Gaurav-Wankhede/webfind.git", branch: "main"
 
-  depends_on "rust" => :build
+  if OS.mac? && Hardware::CPU.arm?
+    url "https://github.com/Gaurav-Wankhede/webfind/releases/download/v0.5.0/webfind-aarch64-apple-darwin.tar.gz"
+    sha256 "2c88f5bdcd2382db748169285c84c1e91cb4e972ff56cf87d84d159530c75526"
+  end
 
   def install
-    system "cargo", "install", *std_cargo_args
+    bin.install "webfind"
   end
 
   test do
